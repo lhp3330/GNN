@@ -1,0 +1,50 @@
+2026-05-15 18:55:53,357 - ====================================================================================================
+2026-05-15 18:55:53,357 - dataset_name: CiteSeer
+2026-05-15 18:55:53,357 - learn_temp: True
+2026-05-15 18:55:53,357 - tau0: 0.1
+2026-05-15 18:55:53,357 - temp: 0.05
+2026-05-15 18:55:53,357 - max_epochs: 100
+2026-05-15 18:55:53,357 - lr: 0.005
+2026-05-15 18:55:53,357 - weight_decay: 0.0005
+2026-05-15 18:55:53,357 - dropout: 0.5
+2026-05-15 18:55:53,357 - env_model: MEAN
+2026-05-15 18:55:53,357 - env_num_layers: 2
+2026-05-15 18:55:53,357 - env_dim: 128
+2026-05-15 18:55:53,357 - act_model: MEAN
+2026-05-15 18:55:53,357 - act_num_layers: 2
+2026-05-15 18:55:53,357 - act_dim: 16
+2026-05-15 18:55:53,357 - seed: 42
+2026-05-15 18:55:53,358 - gpu: 0
+2026-05-15 18:55:53,358 - reg_weight: 0.01
+
+2026-05-15 18:56:05,659 - Split 1: epoch 99, train_loss: 0.00, val_loss: 1.7317, test_loss: 1.7545, train_metric: 1.0000, val_metric: 0.6960, test_metric: 0.6850(0.7220)
+2026-05-15 18:56:05,661 - Split 1, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:56:16,863 - Split 2: epoch 99, train_loss: 0.00, val_loss: 1.7344, test_loss: 1.7557, train_metric: 1.0000, val_metric: 0.6960, test_metric: 0.6840(0.7220)
+2026-05-15 18:56:16,866 - Split 2, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:56:28,224 - Split 3: epoch 99, train_loss: 0.00, val_loss: 1.7373, test_loss: 1.7499, train_metric: 1.0000, val_metric: 0.6960, test_metric: 0.6810(0.7220)
+2026-05-15 18:56:28,226 - Split 3, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:56:39,656 - Split 4: epoch 99, train_loss: 0.00, val_loss: 1.7401, test_loss: 1.7499, train_metric: 1.0000, val_metric: 0.6940, test_metric: 0.6870(0.7220)
+2026-05-15 18:56:39,657 - Split 4, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:56:50,728 - Split 5: epoch 99, train_loss: 0.00, val_loss: 1.7345, test_loss: 1.7557, train_metric: 1.0000, val_metric: 0.6960, test_metric: 0.6840(0.7220)
+2026-05-15 18:56:50,730 - Split 5, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:57:01,687 - Split 6: epoch 99, train_loss: 0.00, val_loss: 1.7306, test_loss: 1.7522, train_metric: 1.0000, val_metric: 0.6940, test_metric: 0.6830(0.7220)
+2026-05-15 18:57:01,689 - Split 6, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:57:12,848 - Split 7: epoch 99, train_loss: 0.00, val_loss: 1.7414, test_loss: 1.7510, train_metric: 1.0000, val_metric: 0.6940, test_metric: 0.6870(0.7220)
+2026-05-15 18:57:12,849 - Split 7, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:57:23,966 - Split 8: epoch 99, train_loss: 0.00, val_loss: 1.7387, test_loss: 1.7385, train_metric: 1.0000, val_metric: 0.6960, test_metric: 0.6840(0.7220)
+2026-05-15 18:57:23,968 - Split 8, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:57:35,035 - Split 9: epoch 99, train_loss: 0.00, val_loss: 1.7415, test_loss: 1.7512, train_metric: 1.0000, val_metric: 0.6940, test_metric: 0.6870(0.7220)
+2026-05-15 18:57:35,037 - Split 9, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:57:45,987 - Split 10: epoch 99, train_loss: 0.00, val_loss: 1.7667, test_loss: 1.7806, train_metric: 1.0000, val_metric: 0.6920, test_metric: 0.6770(0.7220)
+2026-05-15 18:57:45,989 - Split 10, train_metric: 0.8750, val_metric: 0.7220, test_metric: 0.7220
+
+2026-05-15 18:57:45,990 - Final metric: 0.7220 ¡À 0.0000

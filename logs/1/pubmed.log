@@ -1,0 +1,39 @@
+2026-05-03 18:08:18,338 - ====================================================================================================
+2026-05-03 18:08:18,338 - dataset_name: pubmed
+2026-05-03 18:08:18,338 - learn_temp: True
+2026-05-03 18:08:18,338 - temp_model: Linear
+2026-05-03 18:08:18,338 - tau0: 0.1
+2026-05-03 18:08:18,338 - temp: 0.05
+2026-05-03 18:08:18,338 - max_epochs: 400
+2026-05-03 18:08:18,338 - lr: 0.005
+2026-05-03 18:08:18,338 - weight_decay: 5e-06
+2026-05-03 18:08:18,338 - dropout: 0.5
+2026-05-03 18:08:18,338 - env_model: MEAN
+2026-05-03 18:08:18,338 - env_num_layers: 2
+2026-05-03 18:08:18,338 - env_dim: 128
+2026-05-03 18:08:18,338 - act_model: MEAN
+2026-05-03 18:08:18,338 - act_num_layers: 3
+2026-05-03 18:08:18,338 - act_dim: 16
+2026-05-03 18:08:18,338 - seed: 0
+2026-05-03 18:08:18,339 - gpu: 0
+2026-05-03 18:08:18,339 - warmup_epochs: 20
+2026-05-03 18:08:18,339 - reg_weight: 0.002
+2026-05-03 18:08:18,339 - cluster_weight: 0.1
+2026-05-03 18:09:15,789 - Split 1: epoch 399, train_loss: 0.05, val_loss: 1.1481, test_loss: 1.1739, train_metric: 0.9835, val_metric: 0.8434, test_metric: 0.8392(0.8791)
+2026-05-03 18:09:15,793 - Split 1, train_metric: 0.9112, val_metric: 0.8788, test_metric: 0.8791
+
+2026-05-03 18:10:13,256 - Split 2: epoch 399, train_loss: 0.05, val_loss: 1.0961, test_loss: 1.0992, train_metric: 0.9837, val_metric: 0.8374, test_metric: 0.8377(0.8745)
+2026-05-03 18:10:13,261 - Split 2, train_metric: 0.9214, val_metric: 0.8788, test_metric: 0.8745
+
+2026-05-03 18:11:10,914 - Split 3: epoch 399, train_loss: 0.03, val_loss: 1.0550, test_loss: 1.1299, train_metric: 0.9897, val_metric: 0.8483, test_metric: 0.8461(0.8717)
+2026-05-03 18:11:10,918 - Split 3, train_metric: 0.9340, val_metric: 0.8775, test_metric: 0.8717
+
+2026-05-03 18:12:08,687 - Split 4: epoch 399, train_loss: 0.04, val_loss: 1.1916, test_loss: 1.1736, train_metric: 0.9877, val_metric: 0.8363, test_metric: 0.8352(0.8740)
+2026-05-03 18:12:08,691 - Split 4, train_metric: 0.9221, val_metric: 0.8780, test_metric: 0.8740
+
+2026-05-03 18:13:06,277 - Split 5: epoch 399, train_loss: 0.04, val_loss: 1.1291, test_loss: 1.0843, train_metric: 0.9894, val_metric: 0.8334, test_metric: 0.8431(0.8735)
+2026-05-03 18:13:06,281 - Split 5, train_metric: 0.9111, val_metric: 0.8799, test_metric: 0.8735
+
+2026-05-03 18:14:04,098 - Split 6: epoch 399, train_loss: 0.04, val_loss: 1.1075, test_loss: 1.1238, train_metric: 0.9871, val_metric: 0.8363, test_metric: 0.8398(0.8687)
+2026-05-03 18:14:04,104 - Split 6, train_metric: 0.9402, val_metric: 0.8735, test_metric: 0.8687
+

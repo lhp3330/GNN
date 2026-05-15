@@ -1,0 +1,27 @@
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# PyCharm specific settings (optional, keep if you want to share some settings)
+# .idea/misc.xml
+# .idea/modules.xml
+# .idea/vcs.xml
+# .idea/workspace.xml
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg

@@ -1,0 +1,76 @@
+2026-04-20 15:05:21,617 - Split 1: epoch 2999, train_loss: 0.00, val_loss: 0.7362, test_loss: 0.7347, train_metric: 1.0000, val_metric: 0.9056, test_metric: 0.9033(0.9015)
+2026-04-20 15:05:21,640 - Split 1, train_metric: 0.9999, val_metric: 0.9075, test_metric: 0.9015
+
+2026-04-20 15:09:32,706 - Split 2: epoch 2999, train_loss: 0.00, val_loss: 0.7432, test_loss: 0.7208, train_metric: 1.0000, val_metric: 0.9049, test_metric: 0.9070(0.9088)
+2026-04-20 15:09:32,729 - Split 2, train_metric: 1.0000, val_metric: 0.9105, test_metric: 0.9088
+
+2026-04-20 15:14:01,944 - Split 3: epoch 2999, train_loss: 0.00, val_loss: 0.8351, test_loss: 0.7500, train_metric: 1.0000, val_metric: 0.8946, test_metric: 0.9022(0.9024)
+2026-04-20 15:14:01,966 - Split 3, train_metric: 1.0000, val_metric: 0.8989, test_metric: 0.9024
+
+2026-04-20 15:18:17,464 - Split 4: epoch 2999, train_loss: 0.00, val_loss: 0.6963, test_loss: 0.7756, train_metric: 1.0000, val_metric: 0.9098, test_metric: 0.9026(0.9038)
+2026-04-20 15:18:17,487 - Split 4, train_metric: 1.0000, val_metric: 0.9144, test_metric: 0.9038
+
+2026-04-20 15:22:38,811 - Split 5: epoch 2999, train_loss: 0.00, val_loss: 0.7302, test_loss: 0.7436, train_metric: 0.9999, val_metric: 0.9006, test_metric: 0.8996(0.9020)
+2026-04-20 15:22:38,843 - Split 5, train_metric: 0.9999, val_metric: 0.9075, test_metric: 0.9020
+
+2026-04-20 15:25:53,835 - Split 6: epoch 2999, train_loss: 0.00, val_loss: 0.8272, test_loss: 0.7264, train_metric: 1.0000, val_metric: 0.8973, test_metric: 0.9096(0.9079)
+2026-04-20 15:25:53,867 - Split 6, train_metric: 1.0000, val_metric: 0.9033, test_metric: 0.9079
+
+2026-04-20 15:28:50,996 - Split 7: epoch 2999, train_loss: 0.00, val_loss: 0.7681, test_loss: 0.7438, train_metric: 1.0000, val_metric: 0.8994, test_metric: 0.9031(0.9022)
+2026-04-20 15:28:51,023 - Split 7, train_metric: 1.0000, val_metric: 0.9045, test_metric: 0.9022
+
+2026-04-20 15:32:12,183 - Split 8: epoch 2999, train_loss: 0.00, val_loss: 0.8236, test_loss: 0.7905, train_metric: 1.0000, val_metric: 0.8943, test_metric: 0.8990(0.8966)
+2026-04-20 15:32:12,213 - Split 8, train_metric: 0.9999, val_metric: 0.9010, test_metric: 0.8966
+
+2026-04-20 15:35:36,737 - Split 9: epoch 2999, train_loss: 0.00, val_loss: 0.6725, test_loss: 0.7139, train_metric: 1.0000, val_metric: 0.9052, test_metric: 0.9024(0.9029)
+2026-04-20 15:35:36,759 - Split 9, train_metric: 1.0000, val_metric: 0.9112, test_metric: 0.9029
+
+2026-04-20 15:38:55,549 - Split 10: epoch 2999, train_loss: 0.00, val_loss: 0.7555, test_loss: 0.7824, train_metric: 1.0000, val_metric: 0.9026, test_metric: 0.8959(0.8957)
+2026-04-20 15:38:55,571 - Split 10, train_metric: 1.0000, val_metric: 0.9084, test_metric: 0.8957
+
+2026-04-20 15:38:55,572 - Final metric: 0.9024 ¡À 0.0039
+
+
+
+
+
+def parse_arguments():
+    parser = ArgumentParser()
+    parser.add_argument("--dataset_name", dest="dataset_name", default='roman-empire')
+
+    # gumbel
+    parser.add_argument("--learn_temp", dest="learn_temp", default=True, action='store_true', required=False)
+    parser.add_argument("--temp_model", dest="temp_model", default='Linear')
+    parser.add_argument("--tau0", dest="tau0", default=0.1, type=float, required=False)
+    parser.add_argument("--temp", dest="temp", default=0.01, type=float, required=False)
+
+    # optimization
+    parser.add_argument("--max_epochs", dest="max_epochs", default=3000, type=int, required=False)
+    parser.add_argument("--lr", dest="lr", default=3e-3, type=float, required=False)
+    parser.add_argument("--weight_decay", dest="weight_decay", default=0, type=float, required=False)
+    parser.add_argument("--dropout", dest="dropout", default=0.2, type=float, required=False)
+
+    # env
+    parser.add_argument("--env_model", dest="env_model", default="MEAN")
+    parser.add_argument("--env_num_layers", dest="env_num_layers", default=5, type=int, required=False)
+    parser.add_argument("--env_dim", dest="env_dim", default=128, type=int, required=False)
+    parser.add_argument("--layer_norm", dest="layer_norm", default=True, action='store_true', required=False)
+    parser.add_argument("--dec_num_layers", dest="dec_num_layers", default=1, type=int, required=False)
+
+    # act
+    parser.add_argument("--act_model", dest="act_model", default='MEAN')
+    parser.add_argument("--act_num_layers", dest="act_num_layers", default=3, type=int, required=False)
+    parser.add_argument("--act_dim", dest="act_dim", default=8, type=int, required=False)
+
+    # reproduce
+    parser.add_argument("--seed", dest="seed", type=int, default=42, required=False)
+    parser.add_argument('--gpu', dest="gpu", type=int, default=0, required=False)
+
+    # cluster loss
+    parser.add_argument('--warmup_epochs', dest='warmup_epochs', type=int, default=50, required=False)
+    parser.add_argument('--reg_weight', dest='reg_weight', type=float, default=0.005, required=False)
+    parser.add_argument('--cluster_weight', dest='cluster_weight', type=float, default=0.001, required=False)
+    #   cluster_weight = 0.1¨C0.5
+    #   reg_weight = 0.01¨C0.1
+    #   warmup_epochs = 10¨C20
+    return parser.parse_args()

@@ -3,10 +3,10 @@ from experiment4 import Experiment4
 from torch.cuda import set_device
 
 lrs = [1e-3, 1e-5, 3e-3, 3e-5, 5e-3, 5e-5]
-weight_decays = [1e-5, 5e-5, 1e-4, 5e-4, 1e-3, 5e-3]
-tau0s = [0.01, 0.05, 0.1, 0.2]
-reg_weights = [0.0, 0.001, 0.005, 0.01, 0.05, 0.1]
-ks = [10, 15]
+weight_decays = [1e-5, 1e-4, 5e-4, 1e-3, 5e-3]
+tau0s = [0.01, 0.05, 0.1]
+reg_weights = [0.0, 0.001, 0.005, 0.01, 0.05]
+ks = [10]
 alphas = [0.1, 0.15, 0.2]
 
 if __name__ == '__main__':

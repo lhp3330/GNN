@@ -16,24 +16,23 @@ from utils.load_data import env_activation_type
 class CoGNN(Module):
     def __init__(self, gumbel_args: GumbelArgs, env_args: EnvArgs, action_args: ActArgs):
         super(CoGNN, self).__init__()
-
         self.encoder = nn.Linear(env_args.in_dim, env_args.hidden_dim)
         self.dropout = nn.Dropout(env_args.dropout)
         self.act = env_activation_type(env_args.act_type)
 
         self.layer1 = CoGNNConv(gumbel_args, env_args, action_args)
-        self.layer2 = APPNP(K=10, alpha=0.1)
+        self.layer2 = APPNP(K=gumbel_args.k, alpha=gumbel_args.alpha)
         self.layer3 = CoGNNConv(gumbel_args, env_args, action_args)
-        self.layer4 = APPNP(K=10, alpha=0.1)
+        self.layer4 = APPNP(K=gumbel_args.k, alpha=gumbel_args.alpha)
         self.layer5 = CoGNNConv(gumbel_args, env_args, action_args)
-        self.layer6 = APPNP(K=10, alpha=0.1)
+        self.layer6 = APPNP(K=gumbel_args.k, alpha=gumbel_args.alpha)
 
         self.gates = nn.ModuleList([nn.Linear(env_args.hidden_dim, 1) for _ in range(2)])
         self.norms = nn.ModuleList([LayerNorm(env_args.hidden_dim) for _ in range(2)])
 
         self.decoder = nn.Linear(env_args.hidden_dim, env_args.out_dim)
         self.layer_norm = LayerNorm(env_args.hidden_dim)
-        self.appnp = APPNP(K=10, alpha=0.1)
+        self.appnp = APPNP(K=gumbel_args.k, alpha=gumbel_args.alpha)
 
     def forward(self, x, edge_index):
         x = self.encoder(x)

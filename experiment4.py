@@ -53,7 +53,7 @@ class Experiment4(object):
         self.metric = get_metric_type(self.out_dim).to(device=self.device)
 
         gumbel_args = \
-            GumbelArgs(tau0=self.tau0, temp=self.temp, learn_temp=self.learn_temp)
+            GumbelArgs(tau0=self.tau0, temp=self.temp, learn_temp=self.learn_temp, k=self.k, alpha=self.alpha)
 
         act_args = \
             ActArgs(model_type=self.act_model, num_layers=self.act_num_layers, env_dim=self.env_dim,

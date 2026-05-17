@@ -39,7 +39,7 @@
 2026-05-15 18:20:52,357 - Split 7, train_metric: 0.9857, val_metric: 0.8340, test_metric: 0.8490
 
 2026-05-15 18:20:59,678 - Split 8: epoch 59, train_loss: 0.00, val_loss: 1.2245, test_loss: 0.9886, train_metric: 1.0000, val_metric: 0.7880, test_metric: 0.8290(0.8490)
-2026-05-15 18:20:59,679 - Split 8, train_metric: 0.9857, val_metric: 0.8340, test_metric: 0.8490
+2026-05-15 18:20:59,679 - Splith 8, train_metric: 0.9857, val_metric: 0.8340, test_metric: 0.8490
 
 2026-05-15 18:21:08,142 - Split 9: epoch 59, train_loss: 0.00, val_loss: 1.2240, test_loss: 0.9881, train_metric: 1.0000, val_metric: 0.7880, test_metric: 0.8280(0.8490)
 2026-05-15 18:21:08,144 - Split 9, train_metric: 0.9857, val_metric: 0.8340, test_metric: 0.8490

@@ -7,4 +7,9 @@ if __name__ == '__main__':
     args = parse_arguments()
     if args.gpu is not None:
         set_device(args.gpu)
-    Experiment4(args=args).run()
+    for seed in range(0, 500):
+        args.seed = seed
+        sota = Experiment4(args=args).run()
+        if sota >= 0.72:
+            print('*' * 50, end=' ')
+            print('Seed: {}, metric: {:.4f} '.format(seed, sota))

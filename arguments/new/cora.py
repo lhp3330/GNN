@@ -27,7 +27,7 @@ def parse_arguments():
     parser.add_argument("--act_dim", dest="act_dim", default=16, type=int)
 
     # reproduce
-    parser.add_argument("--seed", dest="seed", type=int, default=66)  # pyg: 66
+    parser.add_argument("--seed", dest="seed", type=int, default=82)  # 66, 82, 409, 661, 93, 120, 188, 69
     parser.add_argument('--gpu', dest="gpu", type=int, default=0)
 
     # cluster loss

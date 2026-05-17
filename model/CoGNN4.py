@@ -26,6 +26,7 @@ class CoGNN(Module):
         self.layer3 = CoGNNConv(gumbel_args, env_args, action_args)
         self.layer4 = APPNP(K=10, alpha=0.1)
         self.layer5 = CoGNNConv(gumbel_args, env_args, action_args)
+        self.layer6 = APPNP(K=10, alpha=0.1)
 
         self.gates = nn.ModuleList([nn.Linear(env_args.hidden_dim, 1) for _ in range(2)])
         self.norms = nn.ModuleList([LayerNorm(env_args.hidden_dim) for _ in range(2)])
@@ -34,28 +35,30 @@ class CoGNN(Module):
         self.layer_norm = LayerNorm(env_args.hidden_dim)
         self.appnp = APPNP(K=10, alpha=0.1)
 
-    def forward(self, x, edge_index, M_ppnp):
+    def forward(self, x, edge_index):
         x = self.encoder(x)
         x = self.dropout(x)
         x = self.act(x)
 
         x, edge_weight = self.layer1(x, edge_index)
-        # x_prob = M_ppnp.mm(x)
         x_prob = self.layer2(x, edge_index)
         gate = torch.sigmoid(self.gates[0](x))
         x = self.norms[0](gate * x_prob + (1 - gate) * x)
 
         x, edge_weight = self.layer3(x, edge_index)
-        # x_prob = M_ppnp.mm(x)
         x_prob = self.layer4(x, edge_index)
         gate = torch.sigmoid(self.gates[1](x))
         x = self.norms[1](gate * x_prob + (1 - gate) * x)
 
+        # x, edge_weight = self.layer5(x, edge_index)
+        # # x_prob = M_ppnp.mm(x)
+        # x_prob = self.layer6(x, edge_index)
+        # gate = torch.sigmoid(self.gates[2](x))
+        # x = self.norms[2](gate * x_prob + (1 - gate) * x)
+
         x = self.layer_norm(x)
         embedding = x
-        # x = M_ppnp.mm(x)
         x = self.decoder(x)
-
         return x, edge_weight, embedding
 
 

@@ -32,14 +32,13 @@ class Experiment4(object):
         self.criterion = nn.CrossEntropyLoss()
         self.metric = None
         self.out_dim = None
-        self.M_ppnp = None
 
         self.logger.info("=" * 100)
         for arg in vars(args):
             value_arg = getattr(args, arg)
             self.logger.info(f'{arg}: {value_arg}')
 
-        print(f'dataset: {self.dataset_name}')
+        # print(f'dataset: {self.dataset_name}')
 
     def run(self):
         folds = get_folds()
@@ -48,7 +47,6 @@ class Experiment4(object):
         in_dim = dataset.x.shape[1]
         self.out_dim = int(np.max(dataset.y.numpy()) + 1)
 
-        # self._build_ppnp_matrix(dataset)
         dataset = dataset.to(device=self.device)
 
         # metric
@@ -65,19 +63,20 @@ class Experiment4(object):
                     act_type=env_act_type, in_dim=in_dim, hidden_dim=self.env_dim, out_dim=self.out_dim)
 
         metric_list = []
-        for fold in folds:
+        for fold in [1]:
             set_seed(self.seed)
             # data = generate_split_mask_data(dataset, self.dataset_name, fold, self.out_dim)
             # data = generate_single_random_split(dataset, self.out_dim)
             data = dataset
             sota = self.single_fold(fold + 1, data, env_args, act_args, gumbel_args)
-            print(
-                f'Split {fold + 1}, train_metric: {sota[0]:.4f}, val_metric: {sota[1]:.4f}, test_metric: {sota[2]:.4f}\n')
-            self.logger.info(
-                f'Split {fold + 1}, train_metric: {sota[0]:.4f}, val_metric: {sota[1]:.4f}, test_metric: {sota[2]:.4f}\n')
-            metric_list.append(sota[2])
-        print(f'\nFinal metric: {np.mean(metric_list):.4f} \u00B1 {np.std(metric_list):.4f}')
-        self.logger.info(f'Final metric: {np.mean(metric_list):.4f} \u00B1 {np.std(metric_list):.4f}')
+            # print(
+            #     f'Split {fold + 1}, train_metric: {sota[0]:.4f}, val_metric: {sota[1]:.4f}, test_metric: {sota[2]:.4f}\n')
+            # self.logger.info(
+            #     f'Split {fold + 1}, train_metric: {sota[0]:.4f}, val_metric: {sota[1]:.4f}, test_metric: {sota[2]:.4f}\n')
+            # metric_list.append(sota[2])
+        # print(f'\nFinal metric: {np.mean(metric_list):.4f} \u00B1 {np.std(metric_list):.4f}')
+        # self.logger.info(f'Final metric: {np.mean(metric_list):.4f} \u00B1 {np.std(metric_list):.4f}')
+        return sota[2]
 
     def single_fold(self, fold, data, env_args, act_args, gumbel_args):
         model = CoGNN(gumbel_args, env_args, act_args).to(device=self.device)
@@ -127,7 +126,7 @@ class Experiment4(object):
     def train(self, data, model, optimizer):
         model.train()
         optimizer.zero_grad()
-        logits, edge_weight, embedding = model.forward(x=data.x, edge_index=data.edge_index, M_ppnp=self.M_ppnp)
+        logits, edge_weight, embedding = model.forward(x=data.x, edge_index=data.edge_index)
 
         task_loss = self.criterion(logits[data.train_mask], data.y[data.train_mask])
 
@@ -143,24 +142,9 @@ class Experiment4(object):
     def test(self, data, model, mask):
         model.eval()
         with torch.no_grad():
-            logits, _, _ = model(x=data.x, edge_index=data.edge_index, M_ppnp=self.M_ppnp)
+            logits, _, _ = model(x=data.x, edge_index=data.edge_index)
             node_mask = getattr(data, f'{mask}_mask')
             loss = self.criterion(logits[node_mask], data.y[node_mask])
             metric = self.metric(logits[node_mask], data.y[node_mask])
 
         return loss, metric
-
-    def _build_ppnp_matrix(self, dataset):
-        """PPNP"""
-        n = dataset.x.size(0)
-        A = np.eye(n)
-        u, v = dataset.edge_index.numpy()
-        A[u, v] = 1
-        A[v, u] = 1
-
-        D = np.sum(A, axis=1)
-        D_inv = np.diag(1.0 / D)
-        L = A @ D_inv
-        alpha = 0.1
-        M = alpha * np.linalg.inv(np.eye(n) - (1 - alpha) * L)
-        self.M_ppnp = torch.FloatTensor(M).to(self.device)

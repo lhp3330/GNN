@@ -32,6 +32,7 @@ class Experiment4(object):
         self.criterion = nn.CrossEntropyLoss()
         self.metric = None
         self.out_dim = None
+        self.patience = 100
 
         self.logger.info("=" * 100)
         for arg in vars(args):
@@ -63,7 +64,7 @@ class Experiment4(object):
                     act_type=env_act_type, in_dim=in_dim, hidden_dim=self.env_dim, out_dim=self.out_dim)
 
         metric_list = []
-        for fold in [1]:
+        for fold in [0]:
             set_seed(self.seed)
             # data = generate_split_mask_data(dataset, self.dataset_name, fold, self.out_dim)
             # data = generate_single_random_split(dataset, self.out_dim)
@@ -91,6 +92,7 @@ class Experiment4(object):
         best_train_metric = 0.0
         best_test_metric = 0.0
         best_val_metric = 0.0
+        patience_counter = 0
         train_loss_list, train_metric_list = [], []
         test_loss_list, test_metric_list = [], []
         val_loss_list, val_metric_list = [], []
@@ -99,6 +101,16 @@ class Experiment4(object):
             train_loss, train_metric = self.test(data=data, model=model, mask='train')
             val_loss, val_metric = self.test(data=data, model=model, mask='val')
             test_loss, test_metric = self.test(data=data, model=model, mask='test')
+
+            # === 早停判断 ===
+            improved = (val_metric - best_val_metric) > 1e-4
+            if improved:
+                best_val_metric = val_metric
+                best_test_metric = test_metric
+                best_train_metric = train_metric
+                patience_counter = 0
+            else:
+                patience_counter += 1
 
             if val_metric > best_val_metric:
                 best_val_metric = val_metric
@@ -109,17 +121,21 @@ class Experiment4(object):
             test_loss_list.append(test_loss), test_metric_list.append(test_metric)
             val_loss_list.append(val_loss), val_metric_list.append(val_metric)
 
+
             if epoch + 1 == self.max_epochs:
                 self.logger.info(f'Split {fold}: epoch {epoch}, '
                                  f'train_loss: {train_loss:.2f}, val_loss: {val_loss:.4f}, test_loss: {test_loss:.4f}, '
                                  f'train_metric: {train_metric:.4f}, val_metric: {val_metric:.4f}, '
                                  f'test_metric: {test_metric:.4f}({best_test_metric:.4f})')
 
-            pbar.set_description(f'Split {fold}: epoch {epoch}, '
+            pbar.set_description(f'Split {self.iter}: epoch {epoch}, '
                                  f'train_loss: {train_loss:.2f}, val_loss: {val_loss:.4f}, test_loss: {test_loss:.4f}, '
                                  f'train_metric: {train_metric:.4f}, val_metric: {val_metric:.4f}, '
                                  f'test_metric: {test_metric:.4f}({best_test_metric:.4f})')
             pbar.update(1)
+
+            if patience_counter >= self.patience:
+                return test_metric_list, [best_train_metric.item(), best_val_metric.item(), best_test_metric.item()]
 
         return test_metric_list, [best_train_metric.item(), best_val_metric.item(), best_test_metric.item()]
 

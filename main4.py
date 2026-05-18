@@ -28,8 +28,8 @@ def grid_search():
         'tau0': [0.01, 0.05, 0.1],
         'reg_weight': [0.0, 0.001, 0.005, 0.01, 0.05],
         'alpha': [0.1, 0.15, 0.2],
-        'env_dim': [64, 128, 256],
-        'act_dim': [8, 16, 32]
+        # 'env_dim': [64, 128, 256],
+        # 'act_dim': [8, 16, 32]
     }
 
     keys = list(search_space.keys())

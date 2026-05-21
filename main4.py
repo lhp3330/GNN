@@ -3,17 +3,11 @@ from experiment4 import Experiment4
 from torch.cuda import set_device
 import itertools
 
-# if __name__ == '__main__':
-#     best_metric = 0
-#     args = parse_arguments()
-#     if args.gpu is not None:
-#         set_device(args.gpu)
-#     for seed in range(400, 500):
-#         args.seed = seed
-#         sota = Experiment4(args=args).run()
-#         if sota >= 0.725:
-#             print('*' * 30, end=' ')
-#             print(f"seed: {seed}, metric: {sota:.4f}")
+if __name__ == '__main__':
+    args = parse_arguments()
+    if args.gpu is not None:
+        set_device(args.gpu)
+    sota = Experiment4(args=args).run()
 
 
 
@@ -57,6 +51,5 @@ def grid_search():
     print(f"best metric: {best_metric:.4f}")
     print(f"best hyper p: {best_config}")
 
-
-if __name__ == '__main__':
-    grid_search()
+# if __name__ == '__main__':
+#     grid_search()

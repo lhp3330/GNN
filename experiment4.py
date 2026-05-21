@@ -32,14 +32,13 @@ class Experiment4(object):
         self.criterion = nn.CrossEntropyLoss()
         self.metric = None
         self.out_dim = None
-        self.patience = 100
 
         self.logger.info("=" * 100)
         for arg in vars(args):
             value_arg = getattr(args, arg)
             self.logger.info(f'{arg}: {value_arg}')
 
-        # print(f'dataset: {self.dataset_name}')
+        print(f'dataset: {self.dataset_name}')
 
     def run(self):
         folds = get_folds()
@@ -64,19 +63,19 @@ class Experiment4(object):
                     act_type=env_act_type, in_dim=in_dim, hidden_dim=self.env_dim, out_dim=self.out_dim)
 
         metric_list = []
-        for fold in [0]:
+        for fold in folds:
             set_seed(self.seed)
             # data = generate_split_mask_data(dataset, self.dataset_name, fold, self.out_dim)
             # data = generate_single_random_split(dataset, self.out_dim)
             data = dataset
             sota = self.single_fold(fold + 1, data, env_args, act_args, gumbel_args)
-            # print(
-            #     f'Split {fold + 1}, train_metric: {sota[0]:.4f}, val_metric: {sota[1]:.4f}, test_metric: {sota[2]:.4f}\n')
-            # self.logger.info(
-            #     f'Split {fold + 1}, train_metric: {sota[0]:.4f}, val_metric: {sota[1]:.4f}, test_metric: {sota[2]:.4f}\n')
-            # metric_list.append(sota[2])
-        # print(f'\nFinal metric: {np.mean(metric_list):.4f} \u00B1 {np.std(metric_list):.4f}')
-        # self.logger.info(f'Final metric: {np.mean(metric_list):.4f} \u00B1 {np.std(metric_list):.4f}')
+            print(
+                f'Split {fold + 1}, train_metric: {sota[0]:.4f}, val_metric: {sota[1]:.4f}, test_metric: {sota[2]:.4f}\n')
+            self.logger.info(
+                f'Split {fold + 1}, train_metric: {sota[0]:.4f}, val_metric: {sota[1]:.4f}, test_metric: {sota[2]:.4f}\n')
+            metric_list.append(sota[2])
+        print(f'\nFinal metric: {np.mean(metric_list):.4f} \u00B1 {np.std(metric_list):.4f}')
+        self.logger.info(f'Final metric: {np.mean(metric_list):.4f} \u00B1 {np.std(metric_list):.4f}')
         return sota[2]
 
     def single_fold(self, fold, data, env_args, act_args, gumbel_args):
@@ -121,14 +120,13 @@ class Experiment4(object):
             test_loss_list.append(test_loss), test_metric_list.append(test_metric)
             val_loss_list.append(val_loss), val_metric_list.append(val_metric)
 
-
-            if epoch + 1 == self.max_epochs:
+            if epoch + 1 == self.max_epochs or patience_counter >= self.patience:
                 self.logger.info(f'Split {fold}: epoch {epoch}, '
                                  f'train_loss: {train_loss:.2f}, val_loss: {val_loss:.4f}, test_loss: {test_loss:.4f}, '
                                  f'train_metric: {train_metric:.4f}, val_metric: {val_metric:.4f}, '
                                  f'test_metric: {test_metric:.4f}({best_test_metric:.4f})')
 
-            pbar.set_description(f'Split {self.iter}: epoch {epoch}, '
+            pbar.set_description(f'Split {fold}: epoch {epoch}, '
                                  f'train_loss: {train_loss:.2f}, val_loss: {val_loss:.4f}, test_loss: {test_loss:.4f}, '
                                  f'train_metric: {train_metric:.4f}, val_metric: {val_metric:.4f}, '
                                  f'test_metric: {test_metric:.4f}({best_test_metric:.4f})')

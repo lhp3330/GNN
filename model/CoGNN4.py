@@ -24,6 +24,7 @@ class CoGNN(Module):
         self.layer2 = APPNP(K=gumbel_args.k, alpha=gumbel_args.alpha)
         self.layer3 = CoGNNConv(gumbel_args, env_args, action_args)
         self.layer4 = APPNP(K=gumbel_args.k, alpha=gumbel_args.alpha)
+
         self.layer5 = CoGNNConv(gumbel_args, env_args, action_args)
         self.layer6 = APPNP(K=gumbel_args.k, alpha=gumbel_args.alpha)
 
@@ -97,7 +98,6 @@ class CoGNNConv(Module):
             out = self.act(out)
             x = x + out
 
-        # x = self.layer_norm(x)
         return x, edge_weight
 
     def create_edge_weight(self, edge_index: Adj, keep_in_prob: Tensor, keep_out_prob: Tensor):

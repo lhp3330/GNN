@@ -1,4 +1,5 @@
 import logging
+import random
 import sys
 
 import numpy as np
@@ -24,7 +25,7 @@ class Experiment4(object):
         logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s - %(message)s',
-            filename=f'logs/4/{self.dataset_name}.log',
+            filename=f'log/4/{self.dataset_name}.log',
             filemode='w')
         self.logger = logging.getLogger(__name__)
 
@@ -63,9 +64,9 @@ class Experiment4(object):
                     act_type=env_act_type, in_dim=in_dim, hidden_dim=self.env_dim, out_dim=self.out_dim)
 
         metric_list = []
-        for fold in folds:
+        for fold in [1]:
             set_seed(self.seed)
-            # data = generate_split_mask_data(dataset, self.dataset_name, fold, self.out_dim)
+            data = generate_split_mask_data(dataset, self.dataset_name, fold, self.out_dim)
             # data = generate_single_random_split(dataset, self.out_dim)
             data = dataset
             sota = self.single_fold(fold + 1, data, env_args, act_args, gumbel_args)

@@ -18,6 +18,7 @@
 2026-05-14 16:20:10,658 - warmup_epochs: 20
 2026-05-14 16:20:10,658 - reg_weight: 0.0
 2026-05-14 16:20:10,658 - cluster_weight: 0.001
+
 2026-05-14 16:20:35,165 - Split 1: epoch 199, train_loss: 0.01, val_loss: 0.9837, test_loss: 0.9596, train_metric: 0.9992, val_metric: 0.8040, test_metric: 0.8169(0.8873)
 2026-05-14 16:20:35,167 - Split 1, train_metric: 0.9169, val_metric: 0.8932, test_metric: 0.8873
 

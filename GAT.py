@@ -560,4 +560,4 @@ def run_experiment(dataset_name):
     print(f"{'=' * 60}\n")
 
 
-run_experiment('Cora')
+run_experiment('Citeseer')
